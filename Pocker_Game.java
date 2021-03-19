@@ -110,7 +110,6 @@ public class Pocker_Game {
 		
 		Scanner sc = new Scanner(System.in);
 		
-
 			System.out.println("how many players do we have ");
 			int totalPlayer = sc.nextInt();
 			while (totalPlayer < 2) {
