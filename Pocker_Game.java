@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.IconifyAction;
-
 public class Pocker_Game {
 
 	static int getCard() {
@@ -84,7 +82,7 @@ public class Pocker_Game {
 
 	}
 
-	static int Addiion(ArrayList<Integer> arr) {
+	static int addition(ArrayList<Integer> arr) {
 		int total = 0;
 
 		for (int digit : arr) {
@@ -223,7 +221,7 @@ public class Pocker_Game {
 					break;
 				}
 				//
-				finalAddMap.put(playerID, Addiion(noOnCards));
+				finalAddMap.put(playerID, addition(noOnCards));
 
 				if (allsameNumber(noOnCards)) {
 					finalMap.put(playerID, 6);
@@ -276,13 +274,6 @@ public class Pocker_Game {
 			 
 			}
 		
-//			Map.Entry<Integer, Integer> maxEntry = null;
-//			for (Map.Entry<Integer, Integer> en : finalAddMap.entrySet()) {
-//
-//				if (maxEntry == null || en.getValue().compareTo(maxEntry.getValue()) > 0) {
-//					maxEntry = en;
-//				}
-//			}
 
 			
 			
