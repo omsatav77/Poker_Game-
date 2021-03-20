@@ -22,3 +22,57 @@ pqris winner because of High Card
 press 1  if you want to repeat else press any key
 
 
+test 2:
+how many players do we have 
+3
+choose mode
+ 1: Normal Mode 
+2 : Any Card Mode
+3: Low Card Mode
+4: High Card Mode
+1
+Enter name of 1 player
+A
+card number Before Mode[12, 9, 10]
+[Heart, Club, Heart]
+ you have choosed Normal Mode
+Enter name of 2 player
+B
+card number Before Mode[2, 4, 14]
+[Diamond, Spade, Heart]
+ you have choosed Normal Mode
+Enter name of 3 player
+C
+card number Before Mode[14, 7, 7]
+[Diamond, Club, Heart]
+ you have choosed Normal Mode
+C is winner because of Pair
+
+
+how many players do we have 
+3
+choose mode
+ 1: Normal Mode 
+2 : Any Card Mode
+3: Low Card Mode
+4: High Card Mode
+3
+Enter name of 1 player
+A
+card number Before Mode[6, 11, 2]
+[Club, Diamond, Club]
+you have choosed Low Card  Mode
+card numbers after Low Card Mode[11, 6, 11]
+Enter name of 2 player
+B
+card number Before Mode[13, 10, 3]
+[Diamond, Diamond, Heart]
+you have choosed Low Card  Mode
+card numbers after Low Card Mode[13, 10, 13]
+Enter name of 3 player
+C
+card number Before Mode[7, 11, 4]
+[Spade, Spade, Spade]
+you have choosed Low Card  Mode
+card numbers after Low Card Mode[11, 7, 11]
+C is winner because of Same Colors of card

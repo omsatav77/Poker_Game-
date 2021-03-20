@@ -3,8 +3,12 @@ package Zensar_cisco;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.IconifyAction;
 
 public class Pocker_Game {
 
@@ -256,33 +260,46 @@ public class Pocker_Game {
 			}
 			;
 
-			int pid = (Collections.max(finalAddMap.values()));
 			
-			Map.Entry<Integer, Integer> maxEntry = null;
-			for (Map.Entry<Integer, Integer> en : finalAddMap.entrySet()) {
-
-				if (maxEntry == null || en.getValue().compareTo(maxEntry.getValue()) > 0) {
-					maxEntry = en;
+			Set<Integer> ar=new HashSet<Integer>();
+			ar=maxAdd.keySet();
+			ArrayList<Integer> sameno=new ArrayList<>(ar);
+			int pid=0;
+			int tvalue=0;
+			for(int i:sameno)
+			{
+				if(tvalue<finalAddMap.get(i))
+				{
+					pid=i;
+					tvalue=finalAddMap.get(i);
 				}
+			 
 			}
+		
+//			Map.Entry<Integer, Integer> maxEntry = null;
+//			for (Map.Entry<Integer, Integer> en : finalAddMap.entrySet()) {
+//
+//				if (maxEntry == null || en.getValue().compareTo(maxEntry.getValue()) > 0) {
+//					maxEntry = en;
+//				}
+//			}
 
 			
-			pid = maxEntry.getKey();
 			
 
 
 			if (maxvalue == 6) {
-				System.out.println(players[pid] + "is winner because of All Same Number");
+				System.out.println(players[pid] + " is winner because of All Same Number");
 			} else if (maxvalue == 5) {
-				System.out.println(players[pid] + "is winner because of Pure Sequence With Color");
+				System.out.println(players[pid] + " is winner because of Pure Sequence With Color");
 			} else if (maxvalue == 4) {
-				System.out.println(players[pid] + "is winner because of  Sequence With out Color");
+				System.out.println(players[pid] + " is winner because of  Sequence With out Color");
 			} else if (maxvalue == 3) {
-				System.out.println(players[pid] + "is winner because of Same Colors of card");
+				System.out.println(players[pid] + " is winner because of Same Colors of card");
 			} else if (maxvalue == 2) {
-				System.out.println(players[pid] + "is winner because of Pair");
+				System.out.println(players[pid] + " is winner because of Pair");
 			} else {
-				System.out.println(players[pid] + "is winner because of High Card");
+				System.out.println(players[pid] + " is winner because of High Card");
 
 			}
 
