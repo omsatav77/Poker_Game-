@@ -9,11 +9,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Pocker_Game {
-
+	//method for get random card
 	static int getCard() {
 		return (int) (Math.random() * 52);
 	}
 
+	//to check card's are same colors or not
 	static boolean allsamecolor(ArrayList<String> arr) {
 		String tmp = arr.get(0);
 		for (int i = 1; i < arr.size(); i++) {
@@ -23,7 +24,8 @@ public class Pocker_Game {
 		}
 		return true;
 	}
-
+	
+	//to check card's are same numbers or not
 	static boolean allsameNumber(ArrayList<Integer> arr) {
 		int tmp = arr.get(0);
 		for (int i = 1; i < arr.size(); i++) {
@@ -33,7 +35,7 @@ public class Pocker_Game {
 		}
 		return true;
 	}
-
+	//to check card's are in sequence or not(color wont be same)
 	static boolean SequenceWithoutColor(ArrayList<Integer> arr) {
 		Collections.sort(arr);
 		int tmp = arr.get(0);
@@ -49,6 +51,7 @@ public class Pocker_Game {
 
 	}
 
+	//to check card's have pair or not
 	static boolean pair(ArrayList<Integer> arr) {
 		int tmp = arr.get(0);
 		int cnt = 0;
@@ -75,6 +78,7 @@ public class Pocker_Game {
 
 	}
 
+	//to find out High Card from Cards
 	static int highCard(ArrayList<Integer> arr) {
 		Collections.sort(arr);
 
@@ -82,6 +86,8 @@ public class Pocker_Game {
 
 	}
 
+	
+	//to get addition of all 3 cards
 	static int addition(ArrayList<Integer> arr) {
 		int total = 0;
 
@@ -97,9 +103,11 @@ public class Pocker_Game {
 		String[] cardColor = { "Heart", "Diamond", "Club", "Spade" };
 		String[] cardNo = { "02", "03", "04", "05", "06", "07", "08", "09", "10", "0J", "0Q", "0K", "0A" };
 		String totalCardsArr[] = new String[52];
-
-		HashMap<Integer, Integer> finalMap = new HashMap<>();
-		HashMap<Integer, Integer> finalAddMap = new HashMap<>();
+		//priorityMap  for storing player id and  priority 
+		HashMap<Integer, Integer> priorityMap = new HashMap<>();
+		//for storing playerid and additon of it's card
+		HashMap<Integer, Integer> fAddMap = new HashMap<>();
+		//store playerid and same max priority
 		HashMap<Integer, Integer> maxAdd = new HashMap<>();
 		int increment = 0;
 		//creting array of 52 cards
@@ -110,6 +118,7 @@ public class Pocker_Game {
 			}
 		}
 		
+		//scanner for input data from user
 		Scanner sc = new Scanner(System.in);
 		
 			System.out.println("how many players do we have ");
@@ -125,7 +134,7 @@ public class Pocker_Game {
 			System.out.println("3: Low Card Mode");
 			System.out.println("4: High Card Mode");
 			int mode = sc.nextInt();
-
+			//to get number from 1 to 4 only
 			while (true) {
 				if (mode >= 1 && mode <= 4) {
 					break;
@@ -139,13 +148,17 @@ public class Pocker_Game {
 
 			String[] players = new String[totalPlayer];
 			HashMap<Integer, ArrayList<String>> hmap = new HashMap<>();
-//create player 
+            //create player 
 			for (int playerID = 0; playerID < totalPlayer; playerID++) {
 				System.out.println("Enter name of " + (playerID + 1) + " player");
 				players[playerID] = sc.next();
+				//cards of each player
 				ArrayList<String> cards = new ArrayList<String>();
+				//number on  cards
 				ArrayList<Integer> noOnCards = new ArrayList<Integer>();
+				//colors of cards
 				ArrayList<String> colors = new ArrayList<String>();
+				//assign 3 cards to each player
 				for (int j = 0; j < 3; j++) {
 					String card = totalCardsArr[getCard()];
 					cards.add(card);
@@ -174,7 +187,7 @@ public class Pocker_Game {
 				System.out.println("card number Before Mode" + noOnCards.toString());
 				System.out.println(colors.toString());
 				
-				//switching as per mode
+				//switching as per selected mode
 				switch (mode) {
 				case 1:
 					//no changes in normal mode
@@ -188,6 +201,7 @@ public class Pocker_Game {
 
 					System.out.println("chose index of Number  as  1 or 2 or 3");
 					int anyno = sc.nextInt();
+					//select card which user want to change
 					while (!(anyno >= 1 && anyno <= 3)) {
 						System.out.println("plz select 1 or 2 or 3");
 						anyno = sc.nextInt();
@@ -221,55 +235,54 @@ public class Pocker_Game {
 					break;
 				}
 				//
-				finalAddMap.put(playerID, addition(noOnCards));
-
+				fAddMap.put(playerID, addition(noOnCards));
+					
 				if (allsameNumber(noOnCards)) {
-					finalMap.put(playerID, 6);
+					priorityMap.put(playerID, 6);
 					System.out.println("all same number");
 				} else if (SequenceWithoutColor(noOnCards) && allsamecolor(colors)) {
-					finalMap.put(playerID, 5);
+					priorityMap.put(playerID, 5);
 				} else if (SequenceWithoutColor(noOnCards)) {
 
-					finalMap.put(playerID, 4);
+					priorityMap.put(playerID, 4);
 				} else if (allsamecolor(colors)) {
-					finalMap.put(playerID, 3);
+					priorityMap.put(playerID, 3);
 
 				} else if (pair(noOnCards)) {
-					finalMap.put(playerID, 2);
+					priorityMap.put(playerID, 2);
 				} else {
 					int maxcard = (highCard(noOnCards) * (-1));
 
-					finalMap.put(playerID, maxcard);
+					priorityMap.put(playerID, maxcard);
 				}
 			}
 			
-			int maxvalue = (Collections.max(finalMap.values()));
+			int maxvalue = (Collections.max(priorityMap.values()));
 			if (maxvalue < 0) {
-				maxvalue = (Collections.min(finalMap.values()));
+				maxvalue = (Collections.min(priorityMap.values()));
 			}
-			for (Map.Entry<Integer, Integer> en : finalMap.entrySet()) {
+			for (Map.Entry<Integer, Integer> en : priorityMap.entrySet()) {
 
 				int playeridtmp = 0;
 				if (en.getValue() == maxvalue) {
 					playeridtmp = en.getKey();
-					// finalAddMap.put(playeridtmp, Addiion(noOnCards));
 					maxAdd.put(playeridtmp, maxvalue);
 				}
 			}
 			;
 
 			
-			Set<Integer> ar=new HashSet<Integer>();
-			ar=maxAdd.keySet();
-			ArrayList<Integer> sameno=new ArrayList<>(ar);
+			Set<Integer> arSet=new HashSet<Integer>();
+			arSet=maxAdd.keySet();
+			ArrayList<Integer> sameno=new ArrayList<>(arSet);
 			int pid=0;
 			int tvalue=0;
 			for(int i:sameno)
 			{
-				if(tvalue<finalAddMap.get(i))
+				if(tvalue<fAddMap.get(i))
 				{
 					pid=i;
-					tvalue=finalAddMap.get(i);
+					tvalue=fAddMap.get(i);
 				}
 			 
 			}
@@ -277,7 +290,7 @@ public class Pocker_Game {
 
 			
 			
-
+			//print winner with its reason
 
 			if (maxvalue == 6) {
 				System.out.println(players[pid] + " is winner because of All Same Number");
@@ -296,6 +309,7 @@ public class Pocker_Game {
 
 			
 
+			//scanner close
 		sc.close();
 	}
 }
